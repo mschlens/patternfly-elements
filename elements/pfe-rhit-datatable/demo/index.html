@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+    <title>PatternFly Element | pfe-rhit-datatable Demo</title>
+
+    <noscript>
+      <link href="../../pfelement/dist/pfelement-noscript.min.css" rel="stylesheet">
+    </noscript>
+
+    <link href="../../pfelement/dist/pfelement.min.css" rel="stylesheet">
+
+    <!-- Stylesheets for testing light DOM styles.
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap-reboot.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/typebase.css/0.5.0/typebase.css">
+    -->
+
+    <link rel="stylesheet" href="../../pfe-styles/dist/pfe-base.css" />
+    <link rel="stylesheet" href="../../pfe-styles/dist/pfe-context.css" />
+    <link rel="stylesheet" href="../../pfe-styles/dist/pfe-layouts.css" />
+
+    <!-- uncomment the es5-adapter if you're using the umd version -->
+    <script src="/examples/node_modules/@webcomponents/webcomponentsjs/custom-elements-es5-adapter.js"></script>
+
+    <!-- Use webcomponents-loader when you are adding support for more modern browsers -->
+    <!-- <script src="/examples/node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script> -->
+
+    <!-- IE11 test: use bundle + require with umd files -->
+    <!-- Use webcomponents-bundle when supporting much older browsers like IE11 -->
+    <script src="/examples/node_modules/@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
+
+    <!-- Tests require pulling in the UMD version of the files -->
+    <script src="/examples/node_modules/requirejs/require.js"></script>
+
+    <script>require([
+      "../dist/pfe-rhit-datatable.umd.js"
+    ])</script>
+  </head>
+  <body unresolved>
+    <h1><code>pfe-rhit-datatable</code></h1>
+
+    <pfe-rhit-datatable>
+      <table>
+        <thead id='tableHead'>
+        </thead>
+        <tbody id='tableBody'>
+        </tbody>
+      </table>
+    </pfe-rhit-datatable>
+
+    <!-- Preview different properties
+    <pfe-rhit-datatable pfe-color>
+      <h2>This is pfe-rhit-datatable</h2>
+      <div slot="pfe-rhit-datatable--header">Header slot</div>
+      <div slot="pfe-rhit-datatable--footer">Footer slot</div>
+      <div slot="pfe-rhit-datatable--search">Search slot</div>
+      <div slot="pfe-rhit-datatable--paginator">Paginator slot</div>
+    </pfe-rhit-datatable>
+
+    <pfe-rhit-datatable pfe- priority>
+      <h2>This is pfe-rhit-datatable</h2>
+      <div slot="pfe-rhit-datatable--header">Header slot</div>
+      <div slot="pfe-rhit-datatable--footer">Footer slot</div>
+      <div slot="pfe-rhit-datatable--search">Search slot</div>
+      <div slot="pfe-rhit-datatable--paginator">Paginator slot</div>
+    </pfe-rhit-datatable>
+
+    <pfe-rhit-datatable pfe- paginate>
+      <h2>This is pfe-rhit-datatable</h2>
+      <div slot="pfe-rhit-datatable--header">Header slot</div>
+      <div slot="pfe-rhit-datatable--footer">Footer slot</div>
+      <div slot="pfe-rhit-datatable--search">Search slot</div>
+      <div slot="pfe-rhit-datatable--paginator">Paginator slot</div>
+    </pfe-rhit-datatable>
+
+    <pfe-rhit-datatable pfe- searchable>
+      <h2>This is pfe-rhit-datatable</h2>
+      <div slot="pfe-rhit-datatable--header">Header slot</div>
+      <div slot="pfe-rhit-datatable--footer">Footer slot</div>
+      <div slot="pfe-rhit-datatable--search">Search slot</div>
+      <div slot="pfe-rhit-datatable--paginator">Paginator slot</div>
+    </pfe-rhit-datatable>
+
+    <pfe-rhit-datatable pfe- sortable>
+      <h2>This is pfe-rhit-datatable</h2>
+      <div slot="pfe-rhit-datatable--header">Header slot</div>
+      <div slot="pfe-rhit-datatable--footer">Footer slot</div>
+      <div slot="pfe-rhit-datatable--search">Search slot</div>
+      <div slot="pfe-rhit-datatable--paginator">Paginator slot</div>
+    </pfe-rhit-datatable>
+   -->
+
+  <script>
+    let tableBody = document.getElementById('tableBody'),
+        tableHead = document.getElementById('tableHead'),
+        rows = 20,
+        cols = 20;
+    let tr = document.createElement('tr');
+    for (let c = 0; c<cols; c++) {
+      let th = document.createElement('th');
+      th.innerHTML  = 'Column '+c;
+      tr.appendChild(th);
+    }
+    let tableData = [];
+    tableHead.appendChild(tr);
+    for (let r = 0; r<rows; r++) {
+      let tableRow = [];
+      let tr = document.createElement('tr');
+      for (let c = 0; c<cols; c++) {
+        let td = document.createElement('td');
+        let letter = String.fromCharCode(65+c);
+        let offset = (r+c < rows)? r+c : r+c-rows;
+        td.innerHTML = "Column "+letter+String(offset).padStart(2,'0');
+        tr.appendChild(td);
+        tableRow.push(td.innerHTML);
+      }
+      tableBody.appendChild(tr);
+      tableData.push(tableRow);
+    }
+  </script>
+
+  </body>
+</html>

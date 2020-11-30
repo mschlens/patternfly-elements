@@ -1,0 +1,85 @@
+// Please see the pfe-sass README for guidance on using these tools
+@import "../../pfe-sass/pfe-sass";
+
+
+$LOCAL: rhit;
+
+// Example local variable, using BEM format
+// --pfe-rhit-datatable__region--Property: value;
+
+// This variable is global so that helper functions can reference it
+$LOCAL-VARIABLES: ();
+
+:host {
+  // Avoid printing local variables on host, instead use the pfe-local() function to set property values
+  // Example: color: pfe-local(Color);
+  display: block;
+}
+
+:host([hidden]) {
+  display: none;
+}
+
+//-- Custom styles applied by attributes
+// @each $option in () {
+//   :host([pfe-color="#{$option}"]) {
+//     // Add styles here
+//   }
+// }
+
+// @each $option in () {
+//   :host([pfe- priority="#{$option}"]) {
+//     // Add styles here
+//   }
+// }
+
+// @each $option in () {
+//   :host([pfe- paginate="#{$option}"]) {
+//     // Add styles here
+//   }
+// }
+
+// @each $option in () {
+//   :host([pfe- searchable="#{$option}"]) {
+//     // Add styles here
+//   }
+// }
+
+// @each $option in () {
+//   :host([pfe- sortable="#{$option}"]) {
+//     // Add styles here
+//   }
+// }
+
+//-- Custom styles applied to slot
+// ::slotted([slot="pfe-rhit-datatable--header"]) {
+  // Add styles here
+// }
+
+// ::slotted([slot="pfe-rhit-datatable--footer"]) {
+  // Add styles here
+// }
+
+// ::slotted([slot="pfe-rhit-datatable--search"]) {
+  // Add styles here
+// }
+
+// ::slotted([slot="pfe-rhit-datatable--paginator"]) {
+  // Add styles here
+// }
+
+//-- Custom styles applied to slot's shadow element
+// .pfe-rhit-datatable {
+//   &__header {
+    // Add styles here
+//   }
+//   &__footer {
+    // Add styles here
+//   }
+//   &__search {
+    // Add styles here
+//   }
+//   &__paginator {
+    // Add styles here
+//   }
+// }

@@ -90,74 +90,156 @@ class PfeRhitDatatable extends PFElement {
     };
   }
 
-  setTableData(table) {
-    let rows = table.getElementsByTagName("tr"),
-      tableData = [];
-    for (let r = 0; r < rows.length; r++) {
-      let rowData = [],
-        columns = rows[r].getElementsByTagName("td");
-      for (let c = 0; c < columns.length; c++) {
-        rowData.push(columns[c].innerHTML);
-      }
-      tableData.push(rowData);
-    }
-    return tableData;
-  }
-
   constructor() {
     super(PfeRhitDatatable, { type: PfeRhitDatatable.PfeType });
 
+    this._table = this.shadowRoot.querySelector(`#table`);
     this._header = this.shadowRoot.querySelector(`#header`);
     this._footer = this.shadowRoot.querySelector(`#footer`);
     this._search = this.shadowRoot.querySelector(`#search`);
     this._paginator = this.shadowRoot.querySelector(`#paginator`);
   }
 
+  initTableData(table) {
+    let rows = table.getElementsByTagName("tr"),
+      tableData = [];
+    for (let r = 0; r < rows.length; r++) {
+      let rowData = [],
+        columns = rows[r].getElementsByTagName("td");
+      for (let c = 0; c < columns.length; c++) {
+        let column = columns[c].innerHTML;
+        // Make sure we do proper numeric sorting
+        if (!isNaN(Number(column))) column = Number(column);
+        rowData.push(column);
+      }
+      tableData.push(rowData);
+    }
+    return tableData;
+  }
+
+  set tbody(value) {
+    this._tbody = value;
+    this.originalData = this.initTableData(this._tbody);
+    this.tableData = this.originalData;
+  }
+
+  get tbody() {
+    return this._tbody;
+  }
+
+  /* Sort-related code      */
   sortColumn(index = null) {
-    if (index) {
+    if (index != null) {
       if (this.sortIndex != index) {
+        // th[this.sortIndex].removeClass(['asc','desc','active']);
         this.flag = -1;
         this.sortIndex = index;
+        // th[this.sortIndex].addClass(['asc','active'])
       } else {
+        // th[this.sortIndex].addClass('asc' or 'desc')
         this.flag *= -1;
       }
-    } else {
-      index = this.sortIndex;
     }
     this.tableData.sort(
       (function(index, flag) {
         return function(a, b) {
           return a[index] === b[index] ? 0 : a[index] < b[index] ? flag : flag * -1;
         };
-      })(index, this.flag)
+      })(this.sortIndex, this.flag)
     );
     this.renderTable();
   }
   sortColumnHandler(event) {
     this.sortColumn(event.srcElement.cellIndex);
   }
+  /* /Sort-related code     */
 
-  changeRowCount(event) {
-    this.tableRows = this.rowSelector.querySelectorAll("option:checked")[0].value;
-    this.renderTable();
+  /* Search-related code      */
+  set searchField(value) {
+    this._searchField = value;
+    this._searchField.addEventListener("change", this.searchHandler);
+    this._searchField.addEventListener("keyup", this.searchHandler);
   }
-
   searchFor(search) {
     let searchlist = search
-      .split(",")
-      .map(element => element.trim().replace(/\s+/g, ".*"))
-      .join("|");
+      .split(",") // Multiple search terms separated by commata
+      .map(element => element.trim().replace(/\s+/g, ".*")) // replace whitespace with wildcard
+      .join("|"); // OR them back together
     if (searchlist.length > 0) {
       let regexp = new RegExp(searchlist, "gi");
-      this.tableData = this.originalData.filter(element => element.some(element => element.match(regexp)));
+      this.tableData = this.originalData.filter(element => element.some(element => String(element).match(regexp)));
+    } else {
+      this.tableData = this.originalData;
     }
     this.sortColumn();
     this.renderTable();
   }
 
   searchHandler(event) {
-    this.searchFor(this.searchField.value);
+    this.searchFor(event.originalTarget.value);
   }
+  /* /Search-related code     */
+
+  /* paginator-related code      */
+  activePageHandler(event) {
+    console.log(event);
+    event.stopPropagation();
+    this.activePage = event.originalTarget.href;
+    return false;
+  }
+  set activePage(value) {
+    // zero-based
+    this._activePage = value;
+    // TODO: Build page list
+    let pageList = [];
+    if (this._activePage > 0) {
+      pageList.push({ value: "«", href: 0 });
+      pageList.push({ value: "‹", href: this._activePage - 1 });
+    }
+    for (let i = 0; i < this.pageCount; i++) {
+      pageList.push({ value: i + 1, href: i });
+    }
+    if (this._activePage < this.pageCount - 1) {
+      pageList.push({ value: "›", href: this._activePage + 1 });
+      pageList.push({ value: "»", href: this.pageCount - 1 });
+    }
+    this.pagerList.innerHTML = "";
+    for (let i = 0; i < pageList.length; i++) {
+      //let a = document.createElement('a');
+      let li = document.createElement("li");
+      li.innerHTML = pageList[i]["value"];
+      li.href = pageList[i]["href"];
+      li.addEventListener("click", this.activePageHandler);
+      //li.appendChild(a);
+      this.pagerList.appendChild(li);
+    }
+    this.renderTable();
+  }
+  get activePage() {
+    return this._activePage;
+  }
+
+  set pageCount(value) {
+    this._pageCount = value;
+    // TODO: Calculate proper new page based on current view
+    this.activePage = 0; // Set first page as active
+  }
+  get pageCount() {
+    return this._pageCount;
+  }
+  set rowSelector(value) {
+    this._rowSelector = value;
+    this.tableRows = this._rowSelector.querySelectorAll("option:checked")[0].value;
+    this.pageCount = Math.ceil(this.tableData.length / this.tableRows);
+    this._rowSelector.addEventListener("change", this.changeRowCount);
+  }
+
+  changeRowCount(event) {
+    this.tableRows = this._rowSelector.querySelectorAll("option:checked")[0].value;
+    this.pageCount = Math.ceil(this.tableData.length / this.tableRows);
+    this.renderTable();
+  }
+  /* /paginator-related code     */
 
   connectedCallback() {
     super.connectedCallback();
@@ -166,28 +248,22 @@ class PfeRhitDatatable extends PFElement {
     this.sortColumnHandler = this.sortColumnHandler.bind(this);
     this.changeRowCount = this.changeRowCount.bind(this);
     this.searchHandler = this.searchHandler.bind(this);
+    this.activePageHandler = this.activePageHandler.bind(this);
+
+    this.tbody = this.querySelector("tbody");
+    this.searchField = this.shadowRoot.querySelector("#searchField");
+    this.pagerList = this.shadowRoot.querySelector("#pagerList");
+    this.rowSelector = this.shadowRoot.querySelector("#rowSelector");
+
+    this.querySelectorAll("th").forEach(element => element.addEventListener("click", this.sortColumnHandler));
+
+    this.renderTable();
+
+    /*
     this.header = this.querySelector(`[slot="${this.tag}--header"]`);
     this.footer = this.querySelector(`[slot="${this.tag}--footer"]`);
     this.search = this.querySelector(`[slot="${this.tag}--search"]`);
     this.paginator = this.querySelector(`[slot="${this.tag}--paginator"]`);
-    this._columns = this.querySelectorAll("th");
-    this.tbody = this.querySelector("tbody");
-    this.rowSelector = this.shadowRoot.querySelector("#rowSelector");
-    this.searchField = this.shadowRoot.querySelector("#searchField");
-    this.tableData = this.setTableData(this.tbody);
-    this.originalData = this.tableData;
-    this.tableRows = this.rowSelector.querySelectorAll("option:checked")[0].value;
-
-    for (let index = 0; index < this._columns.length; index++) {
-      let column = this._columns[index];
-      column.addEventListener("click", this.sortColumnHandler);
-    }
-    this.rowSelector.addEventListener("change", this.changeRowCount);
-    //this.searchField.addEventListener('change', this.searchHandler);
-    this.searchField.addEventListener("keyup", this.searchHandler);
-
-    this.renderTable();
-
     // Add a slotchange listener to the lightDOM trigger
     // this.header.addEventListener("slotchange", this._init);
 
@@ -199,13 +275,15 @@ class PfeRhitDatatable extends PFElement {
 
     // Add a slotchange listener to the lightDOM trigger
     // this.paginator.addEventListener("slotchange", this._init);
+    */
   }
 
   renderTable() {
     // TODO: Fix start- and endpoints
-    let count = Math.min(this.tableRows, this.tableData.length);
+    const startRow = this.activePage * this.tableRows;
+    const endRow = Math.min(this.tableRows * (this.activePage + 1), this.tableData.length);
     this.tbody.innerHTML = "";
-    for (let r = 0; r < count; r++) {
+    for (let r = startRow; r < endRow; r++) {
       let row = this.tableData[r],
         tr = document.createElement("tr");
       for (let c = 0; c < row.length; c++) {

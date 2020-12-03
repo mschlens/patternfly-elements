@@ -44,6 +44,7 @@
   "license": "MIT",
   "dependencies": {
     "@patternfly/pfelement": "1.0.0-prerelease.56",
+    "@patternfly/pfe-select": "1.0.0-prerelease.56",
     "gh-pages": "^2.2.0"
   }
 }

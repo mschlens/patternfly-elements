@@ -1,0 +1,150 @@
+// Please see the pfe-sass README for guidance on using these tools
+@import "../../pfe-sass/pfe-sass";
+
+
+$LOCAL: tooltip;
+
+// Example local variable, using BEM format
+// --pfe-tooltip__region--Property: value;
+
+// This variable is global so that helper functions can reference it
+$LOCAL-VARIABLES: (
+  BackgroundColor: #000,
+  BackgroundColor--hover: transparent,
+  Color: #fff,
+  Color--hover: pfe-broadcasted(link--hover)
+);
+
+:host {
+  // Avoid printing local variables on host, instead use the pfe-local() function to set property values
+  // Example: color: pfe-local(Color);
+  display: inline-block;
+  position:relative;
+  text-decoration:underline;
+}
+
+:host span#container.north  .tooltip{
+  bottom:2em;
+  top:auto;
+}
+:host span#container.north:after {
+  top:auto;
+  bottom: 1em;
+  border-top: 1em solid black;
+  border-right: 1em solid transparent;
+  border-bottom:none;
+  border-left: 1em solid transparent;
+}
+
+:host span#container.west  .tooltip{
+  left:1.5em;
+  top:-.75em;
+}
+:host span#container.west:after {
+  top:-1.5em;
+  right: auto;
+  left:-1em;
+  border-top: 1em solid transparent;
+  border-right:none;
+  border-bottom: 1em solid transparent;
+  border-left: 1em solid black;
+}
+
+:host span#container.east  .tooltip{
+  left:1.5em;
+  top:-.75em;
+}
+:host span#container.east:after {
+  top:-1.5em;
+  right: -1em;
+  border-top:1em solid transparent;
+  border-right: 1em solid black;
+  border-bottom: 1em solid transparent;
+  border-left: none;
+}
+
+:host([hidden]) {
+  display: none;
+}
+
+//-- Custom styles applied by attributes
+// @each $option in () {
+//   :host([pfe-color="#{$option}"]) {
+//     // Add styles here
+//   }
+// }
+
+// @each $option in () {
+//   :host([pfe- priority="#{$option}"]) {
+//     // Add styles here
+//   }
+// }
+
+// @each $option in () {
+//   :host([pfe- orientation="#{$option}"]) {
+//     // Add styles here
+//   }
+// }
+
+//-- Custom styles applied to slot
+// ::slotted([slot="pfe-tooltip--header"]) {
+  // Add styles here
+// }
+
+// ::slotted([slot="pfe-tooltip--content"]) {
+  // Add styles here
+// }
+
+// ::slotted([slot="pfe-tooltip--footer"]) {
+  // Add styles here
+// }
+
+//-- Custom styles applied to slot's shadow element
+.pfe_tooltip {
+  &__content {
+    background-color:purple;
+  }
+  &__arrow {
+    height:2em;
+    width:2em;
+    border:none;
+    border-top: 1em black solid;
+  }
+  &__container {
+    display:none;
+    .tooltip {
+      position:absolute;
+      background: #{pfe-local}
+      /*--pfe-tooltip--BackgroundColor: var(--pfe-theme--color--ui-base, #6a6e73);*/
+      color: white;
+      /*color: var(--pfe-tooltip--Color,var(--pfe-broadcasted--link,#06c));*/
+      min-width: 8em;
+      top: 2em;
+      padding: .5em;
+      white-space:nowrap;
+    }
+  }
+  &__container.active {
+    display:block;
+  }
+  &__ontainer:after {
+    content: " ";
+    position: absolute;
+    top:1em;
+    left: -.75em;
+    border-top:none;
+    border-right: 1em solid transparent;
+    border-bottom: 1em solid black;
+    border-left: 1em solid transparent;
+  }
+
+//   &__header {
+    // Add styles here
+//   }
+//   &__content {
+    // Add styles here
+//   }
+//   &__footer {
+    // Add styles here
+//   }
+}

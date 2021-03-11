@@ -9,11 +9,15 @@ $LOCAL: tooltip;
 
 // This variable is global so that helper functions can reference it
 $LOCAL-VARIABLES: (
-  BackgroundColor: #000,
+  BackgroundColor: --pfe-theme--color--surface--darkest;
   BackgroundColor--hover: transparent,
   Color: #fff,
   Color--hover: pfe-broadcasted(link--hover)
 );
+
+:root {
+  background-color:yellow;
+}
 
 :host {
   // Avoid printing local variables on host, instead use the pfe-local() function to set property values
@@ -21,6 +25,7 @@ $LOCAL-VARIABLES: (
   display: inline-block;
   position:relative;
   text-decoration:underline;
+  background-color:red;
 }
 
 :host span#container.north  .tooltip{
@@ -101,6 +106,7 @@ $LOCAL-VARIABLES: (
 
 //-- Custom styles applied to slot's shadow element
 .pfe_tooltip {
+  background-color:lightgreen;
   &__content {
     background-color:purple;
   }

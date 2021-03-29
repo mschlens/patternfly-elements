@@ -1,0 +1,126 @@
+// Please see the pfe-sass README for guidance on using these tools
+@import "../../pfe-sass/pfe-sass";
+
+
+$LOCAL: rhit;
+
+$colors: (
+  a: #3f9c35,
+  b: #92d400,
+  c: #efaa00,
+  d: #ec7a08,
+  e: #cc0000,
+  f: #523333
+);
+// Example local variable, using BEM format
+// --pfe-rhit-datatable__region--Property: value;
+
+// This variable is global so that helper functions can reference it
+$LOCAL-VARIABLES: ();
+
+:host {
+  // Avoid printing local variables on host, instead use the pfe-local() function to set property values
+  // Example: color: pfe-local(Color);
+  display: block;
+  width:100%;
+  border: 1px solid #e7e7e7;
+  padding:3em 1em 3em;;
+}
+
+:host([hidden]) {
+  display: none;
+}
+
+//-- Custom styles applied by attributes
+// @each $option in () {
+//   :host([pfe-color="#{$option}"]) {
+//     // Add styles here
+//   }
+// }
+
+// @each $option in () {
+//   :host([pfe- priority="#{$option}"]) {
+//     // Add styles here
+//   }
+// }
+
+// @each $option in () {
+//   :host([pfe- paginate="#{$option}"]) {
+//     // Add styles here
+//   }
+// }
+
+// @each $option in () {
+//   :host([pfe- searchable="#{$option}"]) {
+//     // Add styles here
+//   }
+// }
+
+// @each $option in () {
+//   :host([pfe- sortable="#{$option}"]) {
+//     // Add styles here
+//   }
+// }
+
+//-- Custom styles applied to slot
+// ::slotted([slot="pfe-rhit-datatable--header"]) {
+  // Add styles here
+// }
+
+// ::slotted([slot="pfe-rhit-datatable--footer"]) {
+  // Add styles here
+// }
+
+// ::slotted([slot="pfe-rhit-datatable--search"]) {
+  // Add styles here
+// }
+
+::slotted([slot="pfe-rhit-datatable--table"]) {
+  // Add styles here
+  width:100%;
+  & tr {
+    background-color:green;
+  }
+}
+
+//-- Custom styles applied to slot's shadow element
+.pfe-rhit-datatable {
+//   &__header {
+    // Add styles here
+//   }
+//   &__footer {
+    // Add styles here
+//   }
+  &__search {
+    position:relative;
+    border-bottom:1px solid #e7e7e7;
+     label {
+       position:absolute;
+       right:0;
+       top:4em;
+     }
+  }
+  &__paginator {
+    border-top:1px solid #e7e7e7;
+    position: relative;
+    // Add styles here
+    label {
+      position:absolute;
+      left:0;
+    }
+  }
+  &__paginator #pagerList {
+    position:absolute;
+    right:0;
+    list-style:none;
+    margin:0;
+  }
+  &__paginator #pagerList li {
+    display:inline-block;
+    padding:0px 5px;
+    cursor:pointer;
+  }
+  &__table {
+    background-color: green;
+  }
+}

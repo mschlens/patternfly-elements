@@ -1,0 +1,24 @@
+<!-- search slot -->
+<slot name="pfe-rhit-datatable--search" class="pfe-rhit-datatable__search" id="search">
+<label>Search: <input type='text' name='pfe-rhit-datatable--search--input' id='searchField' /></label>
+</slot>
+<!-- header slot -->
+<slot name="pfe-rhit-datatable--header" class="pfe-rhit-datatable__header" id="header">
+</slot>
+<slot></slot>
+<!-- footer slot -->
+<slot name="pfe-rhit-datatable--footer" class="pfe-rhit-datatable__footer" id="footer">
+</slot>
+<!-- paginator slot -->
+<slot name="pfe-rhit-datatable--paginator" class="pfe-rhit-datatable__paginator" id="paginator">
+  <label> Display
+    <select name="pfe-rhit-datatable--search--numrows" id='rowSelector'>
+      <option value='10'>10</option>
+      <option value='25' selected>25</option>
+      <option value='50'>50</option>
+      <option value='75'>75</option>
+      <option value='100'>100</option>
+    </select>
+  Rows </label>
+  <ul id='pagerList'></ul>
+</slot>

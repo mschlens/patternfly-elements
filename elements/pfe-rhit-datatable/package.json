@@ -1,0 +1,50 @@
+{
+  "name": "@patternfly/pfe-rhit-datatable",
+  "description": "Rhit datatable element for PatternFly Elements",
+  "pfelement": {
+    "className": "PfeRhitDatatable",
+    "elementName": "pfe-rhit-datatable",
+    "files": {
+      "styles": "./src/pfe-rhit-datatable.scss",
+      "template": "./src/pfe-rhit-datatable.html",
+      "js": "./src/pfe-rhit-datatable.js"
+    },
+    "assets": []
+  },
+  "version": "1.0.0-prerelease.56",
+  "keywords": [
+    "web-components",
+    "html"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "github:patternfly/patternfly-elements",
+    "directory": "elements/pfe-rhit-datatable"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "./dist/pfe-rhit-datatable.umd.js",
+  "module": "./dist/pfe-rhit-datatable.js",
+  "unpkg": "./dist/pfe-rhit-datatable.umd.min.js",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "../../node_modules/.bin/gulp && ../../node_modules/.bin/prettier --ignore-path ../../.prettierignore --write '**/*.{js,json}'",
+    "dev": "../../node_modules/.bin/gulp dev",
+    "watch": "../../node_modules/.bin/gulp watch",
+    "test": "../../node_modules/.bin/wct --configFile ../../wct.conf.json elements/pfe-rhit-datatable/test/"
+  },
+  "contributors": [
+    {
+      "name": "Marc Schlensog"
+    }
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "@patternfly/pfelement": "1.0.0-prerelease.56",
+    "@patternfly/pfe-select": "1.0.0-prerelease.56",
+    "gh-pages": "^2.2.0"
+  }
+}

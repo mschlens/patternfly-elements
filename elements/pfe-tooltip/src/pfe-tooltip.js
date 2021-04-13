@@ -118,6 +118,7 @@ class PfeTooltip extends PFElement {
         west: {
           order: ["west", "east", "north", "south"],
           boundarycheck: trect.left - width > crect.left,
+
           left: "",
           top: "-" + height / 2 + "px"
         }

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <script src="/components/@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
+  <script src="/components/web-component-tester/browser.js"></script>
+  <script type="module" src="../dist/pfe-tooltip.js"></script>
+</head>
+
+<body>
+  <pfe-tooltip>
+    <!-- Default slot -->
+    <h2>This is pfe-tooltip</h2>
+    
+    <!-- Named slots -->
+    <div slot="container">CONTAINER slot</div>
+  </pfe-tooltip>
+
+  
+  <!-- Preview different properties -->
+  <pfe-tooltip container>
+    <h2>This is pfe-tooltip</h2>
+    <div slot="container">CONTAINER slot</div>
+  </pfe-tooltip>
+
+  <script src="pfe-tooltip_test.js"></script>
+</body>
+
+</html>

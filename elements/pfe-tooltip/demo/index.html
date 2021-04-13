@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+    <title>PatternFly Element | pfe-tooltip Demo</title>
+
+    <noscript>
+      <link href="../../pfelement/dist/pfelement-noscript.min.css" rel="stylesheet">
+    </noscript>
+
+    <link href="../../pfelement/dist/pfelement.min.css" rel="stylesheet">
+
+    <!-- Stylesheets for testing light DOM styles.
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap-reboot.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/typebase.css/0.5.0/typebase.css">
+    -->
+
+    <link rel="stylesheet" href="../../pfe-styles/dist/pfe-base.css" />
+    <link rel="stylesheet" href="../../pfe-styles/dist/pfe-context.css" />
+    <link rel="stylesheet" href="../../pfe-styles/dist/pfe-layouts.css" />
+
+    <!-- uncomment the es5-adapter if you're using the umd version -->
+    <script src="/examples/node_modules/@webcomponents/webcomponentsjs/custom-elements-es5-adapter.js"></script>
+
+    <!-- Use webcomponents-loader when you are adding support for more modern browsers -->
+    <!-- <script src="/examples/node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script> -->
+
+    <!-- IE11 test: use bundle + require with umd files -->
+    <!-- Use webcomponents-bundle when supporting much older browsers like IE11 -->
+    <script src="/examples/node_modules/@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
+
+    <!-- Tests require pulling in the UMD version of the files -->
+    <script src="/examples/node_modules/requirejs/require.js"></script>
+
+    <script>require([
+      "../dist/pfe-tooltip.umd.js"
+    ])</script>
+  </head>
+  <body unresolved>
+    <h1><code>pfe-tooltip Tralala</code></h1>
+    <p>
+       In Lorem Lorem sit duis <pfe-tooltip>reprehenderit adipisicing<span slot="pfe-tooltip--tooltip">Container slot</span></pfe-tooltip> ex sint est. Ipsum incididunt sint cillum est sit. Deserunt incididunt velit proident proident. Non nostrud proident amet <pfe-tooltip>labore consectetur est<span slot="pfe-tooltip--tooltip">Container slot</span></pfe-tooltip>. Amet laborum consectetur veniam consectetur.
+    </p>
+    <p>
+      Ex aliquip est consectetur ullamco proident laboris. Anim eiusmod <pfe-tooltip>minim ipsum enim<span slot="pfe-tooltip--tooltip">Container slot</span></pfe-tooltip> aute ipsum Lorem sunt non. Esse amet ea aliqua aliquip. Cupidatat sunt deserunt sunt magna esse dolore nisi fugiat.
+    </p>
+    <p>
+      Eu tempor sit culpa elit ullamco dolore irure in. Eiusmod cupidatat officia <pfe-tooltip>qui amet adipisicing non<span slot="pfe-tooltip--tooltip">Container slot</span></pfe-tooltip>. Pariatur elit qui ut laboris pariatur nulla elit. Commodo sint exercitation excepteur incididunt consectetur.
+    </p>
+    <p>
+      Laborum fugiat officia velit velit. Ad irure commodo eiusmod amet. Excepteur <pfe-tooltip>laboris cupidatat<span slot="pfe-tooltip--tooltip">Container slot</span></pfe-tooltip> enim velit do in.
+    </p>
+
+    <pfe-tooltip>
+      This is pfe-tooltip
+      <!-- Slots -->
+      <span slot="pfe-tooltip--tooltip">Container slot</span>
+    </pfe-tooltip>
+  </body>
+</html>

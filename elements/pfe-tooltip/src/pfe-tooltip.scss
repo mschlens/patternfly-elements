@@ -1,0 +1,94 @@
+// Please see the pfe-sass README for guidance on using these tools
+@import "../../pfe-sass/pfe-sass";
+
+
+$LOCAL: tooltip;
+
+// Example local variable, using BEM format
+// --pfe-tooltip__region--Property: value;
+
+// This variable is global so that helper functions can reference it
+$LOCAL-VARIABLES: ();
+
+:host {
+  // Avoid printing local variables on host, instead use the pfe-local() function to set property values
+  // Example: color: pfe-local(Color);
+  display: inline-block;
+  position:relative;
+  background-color:aliceblue;
+}
+
+:host([hidden]) {
+  display: none;
+}
+
+//-- Custom styles applied by attributes
+// @each $option in () {
+//   :host([pfe-container="#{$option}"]) {
+//     // Add styles here
+//   }
+// }
+
+//-- Custom styles applied to slot
+::slotted([slot="pfe-tooltip--tooltip"]) {
+  background-color:black;
+  color: white;
+  position: absolute;
+  top: 0;
+  padding:3px 5px 0;
+}
+
+//-- Custom styles applied to slot's shadow element
+// .pfe-tooltip {
+//   &__container {
+    // Add styles here
+//   }
+// }
+
+.pfe-tooltip {
+  &__tooltip {
+    position: relative;
+    white-space: nowrap;
+    display:none;
+  }
+  &__tooltip.active {
+    display:block;
+  }
+  &__tooltip.north {
+    bottom:3.5em;
+  }
+  &__tooltip.east {
+    right:-1em;
+  }
+  &__tooltip.south {
+    top:1.5em;
+  }
+  &__tooltip.west {
+    left:-1em;
+  }
+}
+
+#tooltip:before {
+  display:block;
+  position:absolute;
+  width:0;
+  height:0;
+  content:'';
+  border:solid .7em transparent;
+}
+#tooltip.north:before {
+  border-top-color:black;
+  top:1.8em;
+}
+#tooltip.east:before {
+  border-right-color:black;
+  margin-left:-1.2em;
+}
+#tooltip.south:before {
+  border-bottom-color:black;
+  margin-top:-1.2em;
+}
+#tooltip.west:before {
+  border-left-color:black;
+  margin-right:-1.2em;
+}
